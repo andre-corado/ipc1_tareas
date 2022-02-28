@@ -51,14 +51,13 @@ public class Transferencia {
     }
 
     private String setTiempo(){
-        String t = "FECHA Y HORA";
-        return t;
-    }
-
-    public String getTiempo(){
         DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime ahora = LocalDateTime.now();
         String tiempo = formatoHora.format(ahora);
+        return tiempo;
+    }
+
+    public String getTiempo(){        
         return tiempo;
     }
 
