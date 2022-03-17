@@ -8,9 +8,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+
 
 
 public class graficar {
@@ -20,6 +21,8 @@ public class graficar {
     public String encabezado_x;
     public String encabezado_y;
     private String textoDelArchivo;
+    private JFreeChart grafico;
+
 
 
     public void leer(File archivo) {
@@ -66,13 +69,21 @@ public class graficar {
     public ChartPanel graficar(String titulo){
         DefaultCategoryDataset cd = new DefaultCategoryDataset();
         for (int i = 0; i < xdatos.length; i++) {
-            cd.addValue(ydatos[i],xdatos[i],xdatos[i]);
-
+            cd.addValue(ydatos[i], xdatos[i],encabezado_x);
         }
-        JFreeChart grafico = ChartFactory.createBarChart(titulo, encabezado_x, encabezado_y, cd);
+        grafico = ChartFactory.createBarChart(titulo, encabezado_x, encabezado_y, cd);
         ChartPanel graficoPanel = new ChartPanel(grafico);
         graficoPanel.setPreferredSize(new java.awt.Dimension(750,400));
         return graficoPanel;
+    }
+
+    public void exportar (String nombreArchivo){
+        File bar = new File(nombreArchivo+".jpg");
+        try {
+            ChartUtils.saveChartAsJPEG(bar, grafico, 750, 400);
+        } catch (Exception e){
+
+        }
     }
 
 
